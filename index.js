@@ -81,11 +81,11 @@ function criandoGrupo(jogadores, grupos){
         }
         else{
             let rand = parseInt(Math.random()*100); 
-                   
+                   console.log(rand);
             if (rand < 50){
                 
                 if(grupos[0].length<3){
-                    grupos[1].push(jogadores[i+1]);
+                    grupos[0].push(jogadores[i+1]);
                 } else if(grupos[1].length<3){
                     grupos[1].push(jogadores[i+1]);
                 } 
