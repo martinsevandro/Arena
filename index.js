@@ -16,25 +16,25 @@ const jogadoresPareando = [
     {
         id: 2,
         nome: "CD",
-        classe: "dano",
+        classe: "sup",
         telefone: 77
     },
     {
         id: 3,
         nome: "EF",
-        classe: "dano",
+        classe: "sup",
         telefone: 66
     },
     {
         id: 4,
         nome: "GH",
-        classe: "dano",
+        classe: "tank",
         telefone: 11
     },
     {
         id: 5,
         nome: "IJ",
-        classe: "dano",
+        classe: "tank",
         telefone: 85
     },
     {
@@ -63,10 +63,9 @@ const gruposPareando  = [
 ]
 const gruposAux  = [[],[]];
 
-//salvar grupo.classe também, talvez em um vetor de string e ir comparando sempre se ja existe
 function criandoGrupo(jogadores, grupos){
-    grupos[0] = jogadores[0];
-    // console.log(grupos);
+    grupos[0].push(jogadores[0]);
+    
     for(let i=0; i<jogadores.length-1; i++){
         if((grupos[0].length == 3) && (grupos[1].length == 3)){
             break;
@@ -84,31 +83,25 @@ function criandoGrupo(jogadores, grupos){
             let rand = parseInt(Math.random()*100); 
                    
             if (rand < 50){
-                // grupos[0].unshift(jogadores[i+1]);
+                
                 if(grupos[0].length<3){
                     grupos[1].push(jogadores[i+1]);
-                    // console.log("grupo1-length: ",grupos[0].length);
                 } else if(grupos[1].length<3){
                     grupos[1].push(jogadores[i+1]);
-                    // console.log("grupo2-length: ",grupos[1].length);
                 } 
             } else {
                 if(grupos[1].length<3){
                     grupos[1].push(jogadores[i+1]);
-                    // console.log("grupo2-length: ",grupos[1].length);
                 } else if(grupos[0].length<3){
                     grupos[0].push(jogadores[i+1]);
-                    // console.log("grupo1-length: ",grupos[1].length);
                 } 
-                // console.log("grupo 2: ",grupos[1]);            
             }
         }
     }
-    
-}
- 
+    console.log("Grupo1: ",grupos[0],"\nGrupo2: ",grupos[1]);
+} 
 criandoGrupo(jogadoresPareando, gruposAux);
-console.log(gruposAux);
+// console.log(gruposAux);
 // function Grupo(conta1, conta2, conta3){
 //     this.jogador1 = conta1.nome;
 //     this.jogador2 = conta2.nome;
