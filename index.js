@@ -1,28 +1,21 @@
 // //ARENA 3x3
-// const grupo = {
-//     jogador1: "", //nome
-//     jogador2: "",
-//     jogador3: "",
-//     dano: "",   //quantidade 
-//     sup: "", 
-//     tank: "" };
 const jogadoresPareando = [
     {
         id: 1,
         nome: "AB",
-        classe: "dano",
+        classe: "tank",
         telefone: 88    
     },
     {
         id: 2,
         nome: "CD",
-        classe: "sup",
+        classe: "dano",
         telefone: 77
     },
     {
         id: 3,
         nome: "EF",
-        classe: "sup",
+        classe: "dano",
         telefone: 66
     },
     {
@@ -40,147 +33,80 @@ const jogadoresPareando = [
     {
         id: 6,
         nome: "KL",
-        classe: "tank",
+        classe: "sup",
         telefone: 21
     },
 ]
 
-const gruposPareando  = [
-    {
-        id: 1,
-        nome: "Grupo 1",
-        jogador1: "",
-        jogador2: "",
-        jogador3: "",
-    },
-    {
-        id: 2,
-        nome: "Grupo 2",
-        jogador1: "",
-        jogador2: "",
-        jogador3: "",
-    }
-]
-const gruposAux  = [[],[]];
+const time1 = [];
+const time2 = [];
 
-function criandoGrupo(jogadores, grupos){
-    grupos[0].push(jogadores[0]);
+function criandoTime(jogadoresPareando, time1, time2){
+    const jogadoresDano = [];
+    const jogadoresSup = [];
+    const jogadoresTank = [];
     
-    for(let i=0; i<jogadores.length-1; i++){
-        if((grupos[0].length == 3) && (grupos[1].length == 3)){
-            break;
-        }    
-        if(grupos[0].classe === jogadores[i+1].classe){
-            if(grupos[1].length<3){
-                grupos[1].push(jogadores[i+1]);
-                console.log("grupo2-length: ",grupos[1].length);
-            } else if(grupos[0].length<3){
-                grupos[0].push(jogadores[i+1]);
-                console.log("grupo1-length: ",grupos[1].length);
-            }            
+    //mapeando as classes e colocando a info completa nos vetores acima
+    for(let i=0; i<jogadoresPareando.length; i++){    
+        if(jogadoresPareando[i].classe === "dano"){
+            jogadoresDano.push(jogadoresPareando[i]);        
+        }   
+        if(jogadoresPareando[i].classe === "sup"){
+            jogadoresSup.push(jogadoresPareando[i]);
         }
-        else{
-            let rand = parseInt(Math.random()*100); 
-                   console.log(rand);
-            if (rand < 50){
-                
-                if(grupos[0].length<3){
-                    grupos[0].push(jogadores[i+1]);
-                } else if(grupos[1].length<3){
-                    grupos[1].push(jogadores[i+1]);
-                } 
-            } else {
-                if(grupos[1].length<3){
-                    grupos[1].push(jogadores[i+1]);
-                } else if(grupos[0].length<3){
-                    grupos[0].push(jogadores[i+1]);
-                } 
+        if(jogadoresPareando[i].classe === "tank"){
+            jogadoresTank.push(jogadoresPareando[i]);
+        }
+    }
+    
+    //exibir a qtd inicial de cada classe
+    console.log("qtd de cada classe: \ndano: ", jogadoresDano.length,"  sup:",  jogadoresSup.length,"  tank:", jogadoresTank.length);
+    
+    if(jogadoresDano  ==  "")   console.log("Não possui classe de dano na fila")
+    if(jogadoresSup   ==  "")   console.log("Não possui classe de sup na fila")
+    if(jogadoresTank  ==  "")   console.log("Não possui classe de tank na fila")
+   
+    //preenchendo time1:
+    for(let i=0; i<jogadoresPareando.length;  i++){
+        if(time1.length < 3){
+            if(jogadoresDano  !=  ""){
+                time1.push(jogadoresDano[0]);
+                jogadoresDano.shift();
             }
-        }
+            if(time1.length == 3) break; 
+            if(jogadoresSup  !=  ""){
+                time1.push(jogadoresSup[0]);
+                jogadoresSup.shift();
+            }
+            if(time1.length == 3) break; 
+            if(jogadoresTank  !=  ""){
+                time1.push(jogadoresTank[0]);
+                jogadoresTank.shift();
+            }
+        }        
     }
-    console.log("Grupo1: ",grupos[0],"\nGrupo2: ",grupos[1]);
-} 
-criandoGrupo(jogadoresPareando, gruposAux);
-// console.log(gruposAux);
-// function Grupo(conta1, conta2, conta3){
-//     this.jogador1 = conta1.nome;
-//     this.jogador2 = conta2.nome;
-//     this.jogador3 = conta3.nome;
+    //preenchendo time2:
+    for(let i=0; i<jogadoresPareando.length;  i++){
+        if(time2.length < 3){
+            if(jogadoresDano  !=  ""){
+                time2.push(jogadoresDano[0]);
+                jogadoresDano.shift();
+            }
+            if(time2.length == 3) break; 
+            if(jogadoresSup  !=  ""){
+                time2.push(jogadoresSup[0]);
+                jogadoresSup.shift();
+            }
+            if(time2.length == 3) break; 
+            if(jogadoresTank  !=  ""){
+                time2.push(jogadoresTank[0]);
+                jogadoresTank.shift();        
+            }
+        }        
+    }
+}
+criandoTime(jogadoresPareando, time1, time2);
 
-//     let Qtddano = parseInt(conta1.dano + conta2.dano + conta3.dano);
-//     let Qtdsup = parseInt(conta1.sup + conta2.sup + conta3.sup);
-//     let Qtdtank = parseInt(conta1.tank + conta2.tank + conta3.tank);
-
-//     console.log(conta1.dano); 
-// }
-    
-// function Pareamento(jogador1, jogador2, jogador3, jogador4, jogador5, jogador6){
-//     let grupo1 = new Grupo(jogador1,"","");    
-//     let grupo2 = new Grupo("","","");
-//     // console.log("grupo 1:",grupo1);
-//     console.log('g1: ', grupo1.jogador1.classe);
-//     // console.log('g2: ', grupo2.jogador1.classe);
-
-//     if (grupo1.jogador1.classe === jogador2.classe) {          //jogador1 tem a mesma classe do jogador2?
-//         grupo2 = new Grupo(jogador2,"","");
-//     } else {
-//         let rand = parseInt(Math.random()*100);        
-//         if (rand < 50){
-//             grupo1 = new Grupo(jogador1,jogador2,"");
-//             // console.log("grupo 1:",grupo1);
-//         } else {
-//             grupo2 = new Grupo(jogador2,"","");
-//             // console.log("grupo 2:",grupo2);            
-//         }           
-//     }    
-      
-        
-// }
-
-// // function ConverteClasse(classe){
-// //     this.classe = classe;    
-// //     switch (this.classe) {
-// //         case 'dano':
-// //             this.classe = '1'; //corresponde a classe de dano   
-// //             return this.classe;         
-// //         case 'sup':
-// //             this.classe = '2'; //corresponde a classe de sup   
-// //             return this.classe;         
-// //         case 'tank':
-// //             this.classe = '3'; //corresponde a classe de tank           
-// //             return this.classe;
-// //         default:
-// //             this.classe = '0'; //não corresponde a nenhuma classe 
-// //             return console.log("erou!");
-// //     }    
-// // }
-// function Conta(nome, classe, dano, sup, tank){
-//     this.nome = nome;
-//     this.classe = classe;
-//     this.dano = 0;
-//     this.sup = 0;
-//     this.tank = 0;
-//     switch (this.classe) {
-//         case 'dano':
-//             this.dano = 1;     //corresponde a classe de dano   
-//             break;         
-//         case 'sup':
-//             this.sup = 1;      //corresponde a classe de sup   
-//             break;
-//         case 'tank':
-//             this.tank = 1;     //corresponde a classe de tank           
-//             break;
-//         default:
-//             console.log("Erou!"); //não corresponde a nenhuma classe 
-//             break;
-//     }    
-// }
-// const player1 = new Conta('userAB', 'dano', '0', '0', '0');
-// const player2 = new Conta('userCD', 'tank', '0', '0', '0');
-// const player3 = new Conta('userEF', 'dano', '0', '0', '0');
-// const player4 = new Conta('userGH', 'sup', '0', '0', '0');
-// const player5 = new Conta('userIJ', 'sup', '0', '0', '0');
-// const player6 = new Conta('userKL', 'tank', '0', '0', '0');
-
-// // console.log(player1.classe);
-// const resultado = Pareamento(player1, player2, player3, player4, player5, player6);
+console.log("----------*---------------------*---------------------*-----------\n");
+console.log("Time1:",time1);
+console.log("Time2:",time2);
